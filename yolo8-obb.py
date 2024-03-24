@@ -4,8 +4,8 @@ import cv2, math, time
 import numpy as np
 import torch
 
-torch.cuda.set_device(0)
-model = YOLO("yolov8n-obb.pt")
+#torch.cuda.set_device(0)
+model = YOLO("PCB-Relay(3000).pt")
 
 cap = cv2.VideoCapture(0)
 prev_time = 0
@@ -21,10 +21,10 @@ while True:
   
     if ret:
 
-        unflip_frame = cv2.resize(unscale_fr, (320, 240))
+        unflip_frame = cv2.resize(unscale_fr, (640, 480))
         frame = cv2.flip(unflip_frame,1)
 
-        results = model.predict(frame, imgsz=320, conf=0.5, device="0")
+        results = model.predict(frame, imgsz=320, conf=0.5)
         result = results[0]
         box = result.obb
 
